@@ -1,0 +1,7 @@
+# SQLite database
+db.sqlite3
+
+# Python bytecode
+*.pyc
+# venv
+venv/
