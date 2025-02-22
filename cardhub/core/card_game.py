@@ -1,0 +1,60 @@
+import random
+
+
+class Card:
+    SUITS = ["Hearts", "Diamonds", "Clubs", "Spades"]
+    RANKS = [
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "J",
+        "Q",
+        "K",
+        "A",
+    ]
+
+    def __init__(self, suit, rank):
+        self.suit = suit
+        self.rank = rank
+
+    def __str__(self):
+        return f"{self.suit} of {self.rank}"
+
+
+class Deck:
+
+    def __init__(self, num_decks=1):
+        self.cards = [
+            Card(suit, rank) for suit in Card.SUITS for rank in Card.RANKS
+        ] * num_decks
+        random.shuffle(self.cards)
+
+    def deal_card(self):
+        return self.cards.pop()
+
+
+class Hand:
+
+    def __init__(self):
+        self.cards = []
+
+    def add_card(self, card):
+        self.cards.append(card)
+
+    def clear_hand(self):
+        self.cards = []
+
+
+class Player:
+
+    def __init__(self, name):
+        self.name = name
+        self.hand = Hand()
+        self.wins = 0
+        self.losses = 0
+        self.draws = 0
