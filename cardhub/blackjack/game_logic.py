@@ -1,13 +1,34 @@
 from cardhub.core.card_game import Card, Deck, Hand, Player
-from typing import List
+#from typing import List
 
 
-class Dealer(Player):
-    def __init__(self, name, hand):
-        super().__init__(name, hand)
+class BlackjackPlayer(Player):
+    def __init__(self, name):
+        super().__init__(name)
+    
+    def hit(self, deck: Deck):
+        card = deck.deal_card()
+        self.hand.add_card(card)
+        print(f"{self.name} hits and gets {card}.")
+    
+    def stand(self):
+        print(f"{self.name} stands at {self.hand.hand_value()}.")
+    
+
+class Dealer(BlackjackPlayer):
+    def __init__(self):
+        super().__init__("Dealer")
+
+    def hit(self,deck: Deck):
+        while self.hand.hand_value() < 17 :
+            card = deck.deal_card()
+            self.hand.add_card(card)
+            print(f"Dealer hits and gets {card}.")
+        print(f"Dealer stands at {self.hand.hand_value()}.")
+        
 
 
-class Table:
+class BlackjackGame:
     def __init__(self):
         self.players = []
         self.dealer = Dealer("Dealer", Hand())
