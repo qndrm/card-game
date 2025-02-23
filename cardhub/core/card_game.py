@@ -43,6 +43,11 @@ class Hand:
 
     def __init__(self):
         self.cards : List[Card] = []
+    def __str__(self):
+        hand = ""
+        for card in self.cards:
+            hand += f"{card} "
+        return f"{hand}"
 
     def add_card(self, card : Card):
         self.cards.append(card)
@@ -50,7 +55,7 @@ class Hand:
     def clear_hand(self):
         self.cards = []
     
-    def hand_value(self) -> int:
+    def value(self) -> int:
         value = 0
         aces = 0
         for card in self.cards:
