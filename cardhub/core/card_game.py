@@ -1,4 +1,5 @@
 import random
+from typing import List
 
 
 class Card:
@@ -41,13 +42,29 @@ class Deck:
 class Hand:
 
     def __init__(self):
-        self.cards = []
+        self.cards : List[Card] = []
 
-    def add_card(self, card):
+    def add_card(self, card : Card):
         self.cards.append(card)
 
     def clear_hand(self):
         self.cards = []
+    
+    def hand_value(self) -> int:
+        value = 0
+        aces = 0
+        for card in self.cards:
+            if card.rank in ["J","Q","K"]:
+                value += 10
+            elif card.rank == "A":
+                aces += 1
+                value += 11
+            else:
+                value += int(card.rank)
+        while value > 21 and aces:
+            value -= 10
+            aces -= 1 
+        return value
 
 
 class Player:
